@@ -12,7 +12,7 @@ pipeline {
     }
     stage('Test backend with dotnet') {
       steps {
-         sh "docker build -f Dockerfile-sonar -t dotnet-sonarscan --rm ."
+         sh "docker build -f Dockerfile-sonar -t dotnet-sonarscan:02 --rm ."
             }
         } 
     stage('Build image') {
