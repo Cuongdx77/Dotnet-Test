@@ -13,7 +13,6 @@ pipeline {
     stage('Test backend with dotnet') {
       steps {
          sh "docker build -f Dockerfile-sonar -t dotnet-sonarscan:02 --rm ."
-         sh "sleep infinity"
           }
         } 
     stage("Quality gate") {
