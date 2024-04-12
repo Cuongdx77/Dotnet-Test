@@ -17,7 +17,7 @@ pipeline {
         } 
     stage('Build image') {
       steps {
-         sh "docker build -f Dockerfile -t dotnet-test --rm ."
+         sh "docker build -f Dockerfile -t dotnet-test ."
             }      
       }
    }
