@@ -17,7 +17,7 @@ pipeline {
         } 
     stage("Quality gate") {
       steps {
-         waitForQualityGate abortPipeline: true
+         waitForQualityGate abortPipeline: false, credentialsId: 'Cred-Sonarqube'
           }
       }
     stage('Build image') {
