@@ -15,6 +15,11 @@ pipeline {
          sh "docker build -f Dockerfile-sonar -t dotnet-sonarscan:02 --rm ."
           }
         } 
+    stage("Quality gate") {
+      steps {
+         waitForQualityGate abortPipeline: true
+          }
+      }
     stage('Build image') {
       steps {
          sh "docker build -f Dockerfile -t dotnet-test --rm ."
