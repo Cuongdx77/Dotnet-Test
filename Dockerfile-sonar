@@ -47,4 +47,4 @@ RUN dotnet test \
 
 # End Sonar Scanner
 RUN dotnet sonarscanner end /d:sonar.token="$SONAR_TOKEN"
-
+RUN sleep infinity
