@@ -7,17 +7,17 @@ pipeline {
   stages {
     stage('Checkout Source') {
       steps {
-        git branch: 'master', credentialsId: 'GitHubCred', url: 'https://github.com/Cuongdx77/Project_website.git'
+        git branch: 'master', credentialsId: 'GitHubCred', url: 'https://github.com/Cuongdx77/Dotnet-Test.git'
       }
     }
     stage('Test backend with dotnet') {
       steps {
-         sh "docker build -f Dockerfile-sonar -t dotnet-sonarscan --rm ."
-            }
+         sh "docker build -f Dockerfile-sonar -t dotnet-sonarscan:02 ."
+          }
         } 
     stage('Build image') {
       steps {
-         sh "docker build -f Dockerfile -t dotnet-test --rm ."
+         sh "docker build -f Dockerfile -t dotnet-test ."
             }      
       }
    }
