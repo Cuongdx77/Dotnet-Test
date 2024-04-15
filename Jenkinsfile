@@ -15,6 +15,11 @@ pipeline {
          sh "docker build -f Dockerfile-sonar -t dotnet-sonarscan:02 ."
           }
         } 
+    stage("Quality gate") {
+      steps {
+         waitForQualityGate abortPipeline: false, credentialsId: 'Cred-Sonarqube'
+          }
+      }
     stage('Build image') {
       steps {
          sh "docker build -f Dockerfile -t dotnet-test ."
