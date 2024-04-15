@@ -21,7 +21,7 @@ ENV PATH="$PATH:/root/.dotnet/tools"
 ENV SONAR_SCANNER_OPTS="-Dhttp.proxyHost=10.26.2.55 -Dhttp.proxyPort=8080"
 
 # Start Sonar Scanner
-
+COPY ./nuget /root/
 # Restore NuGet packages
 COPY . .
 RUN dotnet restore
