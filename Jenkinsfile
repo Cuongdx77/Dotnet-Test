@@ -15,6 +15,9 @@ pipeline {
         dockerfile {
             filename 'Dockerfile-sonar'
           }
+        steps {
+                sh 'dotnet --info'
+            }
        }
      } 
     stage("Quality gate") {
