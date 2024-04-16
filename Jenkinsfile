@@ -10,11 +10,13 @@ pipeline {
         git branch: 'master', credentialsId: 'GitHubCred', url: 'https://github.com/Cuongdx77/Dotnet-Test.git'
       }
     }
-    stage('Test backend with dotnet') {
-      steps {
-         sh "docker build -f Dockerfile-sonar -t dotnet-sonarscan:02 ."
+    stage('Sonarqube') {
+      agent {
+        dockerfile {
+            filename 'Dockerfile'
           }
-        } 
+       }
+     } 
     stage("Quality gate") {
       steps {
          waitForQualityGate abortPipeline: false, credentialsId: 'Cred-Sonarqube'
