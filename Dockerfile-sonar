@@ -34,7 +34,7 @@ RUN dotnet sonarscanner begin \
   /d:sonar.login="$SONAR_TOKEN" \
   /d:sonar.cs.opencover.reportsPaths=/coverage.opencover.xml \
   /v:"$SONAR_VERSION" \
-  /d: sonar.qualitygate.wait="$SONAR_QUALITYGATE_WAIT"
+  /d:sonar.qualitygate.wait="$SONAR_QUALITYGATE_WAIT"
 
 
 # Copy the rest of the files over
