@@ -8,7 +8,7 @@ ARG SONAR_PROJECT_NAME=test-sonarqube
 ARG SONAR_HOST_URL=http://10.26.2.219:9000
 ARG SONAR_TOKEN=sqa_2044bd25143b77d43f206c7415ff9027816f44e9
 ARG SONAR_VERSION=V2.0.0
-
+ARG SONAR_QUALITYGATE_WAIT=true
 WORKDIR /app
 
 # Install Java 16
@@ -33,7 +33,8 @@ RUN dotnet sonarscanner begin \
   /d:sonar.host.url="$SONAR_HOST_URL" \
   /d:sonar.login="$SONAR_TOKEN" \
   /d:sonar.cs.opencover.reportsPaths=/coverage.opencover.xml \
-  /v:"$SONAR_VERSION"
+  /v:"$SONAR_VERSION" \
+  /d: sonar.qualitygate.wait="$SONAR_QUALITYGATE_WAIT"
 
 
 # Copy the rest of the files over
