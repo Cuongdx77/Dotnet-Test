@@ -13,7 +13,7 @@ pipeline {
     stage('Sonarqube') {
       agent {
         dockerfile {
-            filename 'Dockerfile'
+            filename 'Dockerfile-sonar'
           }
        }
      } 
