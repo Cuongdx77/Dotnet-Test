@@ -15,8 +15,8 @@ pipeline {
         dockerfile {
             filename 'Dockerfile-sonar'
           }
-        steps {
-                sh 'dotnet --info'
+      steps {
+               sh 'dotnet --info'
             }
        }
      } 
