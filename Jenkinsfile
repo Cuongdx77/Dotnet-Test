@@ -14,15 +14,15 @@ pipeline {
     stage('Sonarqube') {
       agent { label 'agent2'}
       steps {
-                sh 'dotnet --info'
-            }
+           withSonarQubeEnv('Sonarqube server connection'){
+                sh 'cd /root/ETicaretAPI \
+                 && dotnet tool install --global dotnet-sonarscanner \
+                 && dotnet sonarscanner begin /k:"test-sonarqube" /d:sonar.host.url="http://10.26.2.215:9000"  /d:sonar.token="sqp_d23765f8669b627f6488af88ba6648beb7aeff57" \
+                 && dotnet build \
+                 && dotnet sonarscanner end /d:sonar.token="sqp_d23765f8669b627f6488af88ba6648beb7aeff57"'
+           }
+        }
      } 
-    stage("Quality gate") {
-      agent any
-      steps {
-         waitForQualityGate abortPipeline: false, credentialsId: 'Cred-Sonarqube'
-          }
-      }
     stage('Build image') {
       agent { label 'agent1'}
       steps {
