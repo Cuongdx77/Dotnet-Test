@@ -3,7 +3,7 @@ pipeline {
     dockerimagename = "dxcuong206/dotnet-test"
     dockerImage = ""
   }
-  agent any
+  agent none
   stages {
     stage('Checkout Source') {
       agent any
