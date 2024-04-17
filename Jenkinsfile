@@ -6,17 +6,13 @@ pipeline {
   agent none
   stages {
     stage('Checkout Source') {
-      agent any
+      agent { label 'agent1'}
       steps {
         git branch: 'master', credentialsId: 'GitHubCred', url: 'https://github.com/Cuongdx77/Dotnet-Test.git'
       }
     }
     stage('Sonarqube') {
-      agent {
-        dockerfile {
-            filename 'Dockerfile-sonar'
-          }
-       }
+      agent { label 'agent2'}
       steps {
                 sh 'dotnet --info'
             }
@@ -28,7 +24,7 @@ pipeline {
           }
       }
     stage('Build image') {
-      agent any
+      agent { label 'agent1'}
       steps {
          sh "docker build -f Dockerfile -t dotnet-test ."
             }      
