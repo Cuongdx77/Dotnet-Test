@@ -12,7 +12,7 @@ pipeline {
       }
     }
     stage('Sonarqube') {
-      agent { label 'agent2'}
+      agent { label 'agent3'}
       steps {
            withSonarQubeEnv('Sonarqube server connection'){
                 sh 'cd /root/ETicaretAPI \
