@@ -20,11 +20,6 @@ ENV PATH="$PATH:/root/.dotnet/tools"
 # Set SonarScanner options for proxy
 ENV SONAR_SCANNER_OPTS="-Dhttp.proxyHost=10.26.2.55 -Dhttp.proxyPort=8080"
 
-# Start Sonar Scanner
-#COPY /.nuget /root/
-# Restore NuGet packages
-COPY . .
-RUN dotnet restore
 RUN dotnet tool install --global dotnet-sonarscanner
 RUN dotnet tool install --global coverlet.console
 RUN dotnet sonarscanner begin \
@@ -34,6 +29,10 @@ RUN dotnet sonarscanner begin \
   /d:sonar.login="$SONAR_TOKEN" \
   /d:sonar.cs.opencover.reportsPaths=/coverage.opencover.xml \
   /v:"$SONAR_VERSION" 
+
+COPY . .
+RUN dotnet restore
+
 #  /d:sonar.qualitygate.wait="$SONAR_QUALITYGATE_WAIT"
 
 
