@@ -19,7 +19,15 @@ pipeline {
                 sh 'docker build -f Dockerfile-sonar -t dotnet-sonarscan:02 --rm .'
            }
         }
-     } 
+     }
+    stage("Quality Gate") {
+      agent { label 'agent3'}
+      steps {
+            timeout(time: 1, unit: 'HOURS') {
+            waitForQualityGate abortPipeline: true
+                }
+          }
+    }
     stage('Build image') {
       agent { label 'agent1'}
       steps {
