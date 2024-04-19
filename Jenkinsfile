@@ -16,11 +16,7 @@ pipeline {
       steps {
            withSonarQubeEnv('Sonarqube server connection'){
                 sh 'cd /root/ETicaretAPI \
-                 && dotnet tool install --global dotnet-sonarscanner \
-                 && dotnet tool install --global coverlet.console \
-                 && dotnet sonarscanner begin /k:"test-sonarqube" /d:sonar.host.url="http://10.26.2.215:9000"  /d:sonar.token="sqa_fe73f131965a42da2617903667e2c39e44717af2" \
-                 && dotnet build \
-                 && dotnet sonarscanner end /d:sonar.token="sqa_fe73f131965a42da2617903667e2c39e44717af2"'
+                 && docker build -f Dockerfile-sonar -t dotnet-sonarscan --rm .'
            }
         }
      } 
