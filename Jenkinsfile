@@ -20,7 +20,7 @@ pipeline {
                  && dotnet tool install --global coverlet.console \
                  && dotnet sonarscanner begin /k:"test-sonarqube" /d:sonar.host.url="http://10.26.2.215:9000"  /d:sonar.token="sqp_d23765f8669b627f6488af88ba6648beb7aeff57" \
                  && dotnet build \
-                 && dotnet sonarscanner end /d:sonar.token="sqp_d23765f8669b627f6488af88ba6648beb7aeff57"'
+                 && dotnet sonarscanner end /d:sonar.token="sqa_fe73f131965a42da2617903667e2c39e44717af2"'
            }
         }
      } 
