@@ -5,8 +5,8 @@ ENV https_proxy http://10.26.2.55:8080
 ENV no_proxy localhost,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,169.254.0.0/16,127.0.0.0/8
 ARG SONAR_PROJECT_KEY=test-sonarqube
 ARG SONAR_PROJECT_NAME=test-sonarqube
-ARG SONAR_HOST_URL=http://10.26.2.219:9000
-ARG SONAR_TOKEN=sqa_2044bd25143b77d43f206c7415ff9027816f44e9
+ARG SONAR_HOST_URL=http://10.26.2.215:9000
+ARG SONAR_TOKEN=sqp_11864b404e0a7d8b562668d9917e1c753cdfc0c8
 ARG SONAR_VERSION=V2.0.0
 ARG SONAR_QUALITYGATE_WAIT=true
 WORKDIR /app
@@ -21,7 +21,7 @@ ENV PATH="$PATH:/root/.dotnet/tools"
 ENV SONAR_SCANNER_OPTS="-Dhttp.proxyHost=10.26.2.55 -Dhttp.proxyPort=8080"
 
 # Start Sonar Scanner
-COPY /.nuget /root/
+#COPY /.nuget /root/
 # Restore NuGet packages
 COPY . .
 #RUN dotnet restore
