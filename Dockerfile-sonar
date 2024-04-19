@@ -24,7 +24,7 @@ ENV SONAR_SCANNER_OPTS="-Dhttp.proxyHost=10.26.2.55 -Dhttp.proxyPort=8080"
 #COPY /.nuget /root/
 # Restore NuGet packages
 COPY . .
-#RUN dotnet restore
+RUN dotnet restore
 RUN dotnet tool install --global dotnet-sonarscanner
 RUN dotnet tool install --global coverlet.console
 RUN dotnet sonarscanner begin \
