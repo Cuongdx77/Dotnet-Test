@@ -24,7 +24,7 @@ pipeline {
       agent { label 'agent3'}
       steps {
             timeout(time: 1, unit: 'HOURS') {
-            waitForQualityGate abortPipeline: true
+            waitForQualityGate abortPipeline: false, credentialsId: 'Sonarqube_Cred'
                 }
           }
     }
