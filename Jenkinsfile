@@ -24,10 +24,12 @@ pipeline {
      agent { label 'agent3'} 
      steps {
        withSonarQubeEnv(credentialsId: 'Sonarqube_Cred', installationName:'Sonarqube server connection') {
-         waitForQualityGate()
+          timeout(time: 1, unit: 'MINUTES') {
+              waitForQualityGate abortPipeline: true
         }
        }
      }
+    }
     stage('Build image') {
       agent { label 'agent1'}
       steps {
