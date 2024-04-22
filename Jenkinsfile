@@ -23,14 +23,11 @@ pipeline {
     stage('Quality Gate') {
      agent { label 'agent3'} 
      steps {
-      script {
-        timeout(time:1, unit: 'HOURS') {
-          def qg = waitForQualityGate()
-          if (qg.status != 'OK') {
-           error "Pipeline abortada devido a falha do Quality Gate: ${qg.status}"
-          }
+       withSonarQubeEnv(credentialsId: 'Sonarqube_Cred', installationName:'Sonarqube server connection') {                   
+         timeout(time: 60, unit: 'MINUTES') {
+         waitForQualityGate abortPipeline: true
+           }
         }
-      }
     }
   }
     stage('Build image') {
