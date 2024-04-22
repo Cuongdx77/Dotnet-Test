@@ -12,7 +12,7 @@ ARG SONAR_PROJECT_NAME=test-sonarqube
 ARG SONAR_HOST_URL=http://10.26.2.215:9000
 ARG SONAR_TOKEN=sqa_c1155d4ddbbf2cf5a084a2b9b2ebb40784080a2f
 ARG SONAR_VERSION=V2.0.0
-ARG SONAR.QUALITYGATE.WAIT=true
+ARG SONAR_QUALITYGATE_WAIT=true
 # Thiết lập thư mục làm việc
 WORKDIR /app
 
@@ -32,7 +32,7 @@ RUN dotnet sonarscanner begin \
   /d:sonar.login="$SONAR_TOKEN" \
   /d:sonar.cs.opencover.reportsPaths=/coverage.opencover.xml \
   /v:"$SONAR_VERSION" \
-  /d:sonar.qualitygate.wait="SONAR.QUALITYGATE.WAIT"
+  /d:sonar.qualitygate.wait="$SONAR_QUALITYGATE_WAIT"
 
 # Copy mã nguồn vào thư mục làm việc
 COPY . .
