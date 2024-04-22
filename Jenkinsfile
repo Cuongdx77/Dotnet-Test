@@ -21,6 +21,7 @@ pipeline {
         }
      }
     stage('Quality Gate') {
+     agent { label 'agent3'} 
      steps {
       script {
         timeout(time:1, unit: 'HOURS') {
