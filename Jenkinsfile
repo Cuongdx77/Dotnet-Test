@@ -17,19 +17,12 @@ pipeline {
            withSonarQubeEnv(credentialsId: 'Sonarqube_Cred', installationName:'Sonarqube server connection'){
                 sh 'cd /root/ETicaretAPI'
                 sh 'docker build -f Dockerfile-sonar -t dotnet-sonarscan:02 --rm .'
+                timeout(time: 1, unit: 'MINUTES') {
+                waitForQualityGate abortPipeline: true
+             }
            }
         }
      }
-    stage('Quality Gate') {
-     agent { label 'agent3'} 
-     steps {
-       withSonarQubeEnv(credentialsId: 'Sonarqube_Cred', installationName:'Sonarqube server connection') {
-          timeout(time: 1, unit: 'MINUTES') {
-              waitForQualityGate abortPipeline: true
-        }
-       }
-     }
-    }
     stage('Build image') {
       agent { label 'agent1'}
       steps {
