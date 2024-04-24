@@ -18,7 +18,7 @@ pipeline {
                 sh 'cd /root/ETicaretAPI'
                 sh 'docker build -f Dockerfile-sonar -t dotnet-sonarscan:02 --rm .'
                 timeout(time: 1, unit: 'MINUTES') {
-                waitForQualityGate abortPipeline: true
+                waitForQualityGate 'true'
              }
            }
         }
