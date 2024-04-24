@@ -18,7 +18,7 @@ pipeline {
            withSonarQubeEnv('Sonarqube server connection'){
                 sh 'cd /root/ETicaretAPI'
                 sh 'docker build -f Dockerfile-sonar -t dotnet-sonarscan:02 --rm .'
-                timeout(time: 1, unit: 'MINUTES') {
+                timeout(time: 1, unit: 'HOURS') {
                 waitForQualityGate 'true'
              }
            }
