@@ -17,12 +17,13 @@ pipeline {
            withSonarQubeEnv('Sonarqube server connection'){
                 sh 'cd /root/ETicaretAPI'
                 sh 'docker build -f Dockerfile-sonar -t dotnet-sonarscan:02 --rm .'
-                timeout(time: 1, unit: 'HOURS') {
-                waitForQualityGate 'true'
+             }
+           def qualitygate = waitForQualityGate()
+             if (qualitygate.status != "OK") {
+            error "Pipeline aborted due to quality gate coverage failure: ${qualitygate.status}"
              }
            }
         }
-     }
     stage('Build image') {
       agent { label 'agent1'}
       steps {
