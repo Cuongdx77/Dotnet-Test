@@ -14,16 +14,18 @@ pipeline {
     stage('Sonarqube') {
       agent { label 'agent3'}
       steps {
-           withSonarQubeEnv('Sonarqube server connection'){
-                sh 'cd /root/ETicaretAPI'
-                sh 'docker build -f Dockerfile-sonar -t dotnet-sonarscan:02 --rm .'
-             }
-           def qualitygate = waitForQualityGate()
-           if (qualitygate.status != "OK") {
-               error "Pipeline aborted due to quality gate coverage failure: ${qualitygate.status}"
-             }
-           }
+        withSonarQubeEnv('Sonarqube server connection'){
+            sh 'cd /root/ETicaretAPI'
+            sh 'docker build -f Dockerfile-sonar -t dotnet-sonarscan:02 --rm .'
         }
+        script {
+            def qualitygate = waitForQualityGate()
+            if (qualitygate.status != "OK") {
+                error "Pipeline aborted due to quality gate coverage failure: ${qualitygate.status}"
+            }
+        }
+    }
+}
     stage('Build image') {
       agent { label 'agent1'}
       steps {
