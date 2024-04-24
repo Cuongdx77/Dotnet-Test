@@ -14,7 +14,6 @@ pipeline {
     stage('Sonarqube') {
       agent { label 'agent3'}
       steps {
-        withCredentials([string(credentialsId: 'Sonarqube_Cred')]) {
            withSonarQubeEnv('Sonarqube server connection'){
                 sh 'cd /root/ETicaretAPI'
                 sh 'docker build -f Dockerfile-sonar -t dotnet-sonarscan:02 --rm .'
@@ -24,7 +23,6 @@ pipeline {
            }
         }
      }
-    }  
     stage('Build image') {
       agent { label 'agent1'}
       steps {
