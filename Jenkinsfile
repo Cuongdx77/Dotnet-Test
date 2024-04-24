@@ -20,18 +20,20 @@ pipeline {
               }
             }
           }
-   stage("Quality Gate"){
+    stage("Quality Gate") {
       agent { label 'agent3'}
       steps {
-          sleep(60)
-          timeout(time: 1, unit: 'HOURS') {
-          def qualitygate = waitForQualityGate()
-          if (qualitygate.status != "OK") {
-                error "Pipeline aborted due to quality gate coverage failure: ${qualitygate.status}"
-              }
+        sleep(60)
+        timeout(time: 1, unit: 'HOURS') {
+          script {
+            def qualitygate = waitForQualityGate()
+            if (qualitygate.status != "OK") {
+              error "Pipeline aborted due to quality gate coverage failure: ${qualitygate.status}"
+            }
           }
+        }
       }
-   }
+    }
   stage('Build image') {
     agent { label 'agent1'}
       steps {
