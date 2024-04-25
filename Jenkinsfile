@@ -15,8 +15,9 @@ pipeline {
      agent { label 'agent3'}
      steps {
               withSonarQubeEnv('Sonarqube server connection'){
-                  sh 'cd /root/ETicaretAPI'
-                  bat 'docker build -f Dockerfile-sonar -t dotnet-sonarscan:02 --rm .'
+                 ${scannerHome}/bin/sonar-scanner
+                  #sh 'cd /root/ETicaretAPI'
+                  #sh 'docker build -f Dockerfile-sonar -t dotnet-sonarscan:02 --rm .'
               }
             }
           }
