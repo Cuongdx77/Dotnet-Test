@@ -15,7 +15,9 @@ pipeline {
      agent { label 'agent3'}
      steps {
               withSonarQubeEnv('Sonarqube server connection'){
-                 ${scannerHome}/bin/sonar-scanner
+                  SonarScanner.MSBuild.exe begin /k:"test-sonarqube" /d:sonar.host.url="http://10.26.2.215:9000/" /d:sonar.login="sqa_c1155d4ddbbf2cf5a084a2b9b2ebb40784080a2f"
+                  MSBuild.exe ETicaretAPI/src/ETicaretAPI.sln /t:Rebuild
+                  SonarScanner.MSBuild.exe end /d:sonar.login="sqa_c1155d4ddbbf2cf5a084a2b9b2ebb40784080a2f"
                   #sh 'cd /root/ETicaretAPI'
                   #sh 'docker build -f Dockerfile-sonar -t dotnet-sonarscan:02 --rm .'
               }
