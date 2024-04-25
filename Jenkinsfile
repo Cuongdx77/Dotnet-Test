@@ -11,18 +11,18 @@ pipeline {
         git branch: 'master', credentialsId: 'GitHubCred', url: 'https://github.com/Cuongdx77/Dotnet-Test.git'
       }
     }
-  stage('Sonarqube') {
-     agent { label 'agent3'}
-     steps {
-              withSonarQubeEnv('Sonarqube server connection'){
-                  SonarScanner.MSBuild.exe begin /k:"testsonarqube" /d:sonar.host.url="http://10.26.2.215:9000/" /d:sonar.login="sqa_c1155d4ddbbf2cf5a084a2b9b2ebb40784080a2f"
-                  MSBuild.exe ETicaretAPI/src/ETicaretAPI.sln /t:Rebuild
-                  SonarScanner.MSBuild.exe end /d:sonar.login="sqa_c1155d4ddbbf2cf5a084a2b9b2ebb40784080a2f"
-                  #sh 'cd /root/ETicaretAPI'
-                  #sh 'docker build -f Dockerfile-sonar -t dotnet-sonarscan:02 --rm .'
-              }
-            }
+    stage('Sonarqube') {
+      agent { label 'agent3'}
+      steps {
+        script {
+          withSonarQubeEnv('Sonarqube server connection') {
+            bat "\"SonarScanner.MSBuild.exe\" begin /k:\"testsonarqube\" /d:sonar.host.url=\"http://10.26.2.215:9000/\" /d:sonar.login=\"sqa_c1155d4ddbbf2cf5a084a2b9b2ebb40784080a2f\""
+            bat "\"MSBuild.exe\" ETicaretAPI/src/ETicaretAPI.sln /t:Rebuild"
+            bat "\"SonarScanner.MSBuild.exe\" end /d:sonar.login=\"sqa_c1155d4ddbbf2cf5a084a2b9b2ebb40784080a2f\""
           }
+        }
+      }
+    }
     stage("Quality Gate") {
       agent { label 'agent3'}
       steps {
@@ -36,11 +36,11 @@ pipeline {
         }
       }
     }
-  stage('Build image') {
-    agent { label 'agent1'}
+    stage('Build image') {
+      agent { label 'agent1'}
       steps {
          sh "docker build -f Dockerfile -t dotnet-test ."
-            }      
-      }
-   }
+      }      
+    }
+  }
 }
