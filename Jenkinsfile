@@ -23,7 +23,6 @@ pipeline {
     stage("Quality Gate") {
       agent { label 'agent3'}
       steps {
-        sleep(60)
         timeout(time: 1, unit: 'HOURS') {
           script {
             def qualitygate = waitForQualityGate()
