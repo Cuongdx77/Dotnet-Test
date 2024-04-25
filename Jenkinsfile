@@ -16,7 +16,7 @@ pipeline {
      steps {
               withSonarQubeEnv('Sonarqube server connection'){
                   sh 'cd /root/ETicaretAPI'
-                  sh 'docker build -f Dockerfile-sonar -t dotnet-sonarscan:02 --rm .'
+                  bat 'docker build -f Dockerfile-sonar -t dotnet-sonarscan:02 --rm .'
               }
             }
           }
