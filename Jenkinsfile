@@ -16,9 +16,9 @@ pipeline {
       steps {
         script {
           withSonarQubeEnv('Sonarqube server connection') {
-            bat "\"SonarScanner.MSBuild.exe\" begin /k:\"testsonarqube\" /d:sonar.host.url=\"http://10.26.2.215:9000/\" /d:sonar.login=\"sqa_c1155d4ddbbf2cf5a084a2b9b2ebb40784080a2f\""
-            bat "\"MSBuild.exe\" ETicaretAPI/src/ETicaretAPI.sln /t:Rebuild"
-            bat "\"SonarScanner.MSBuild.exe\" end /d:sonar.login=\"sqa_c1155d4ddbbf2cf5a084a2b9b2ebb40784080a2f\""
+            sh "\"SonarScanner.MSBuild.exe\" begin /k:\"testsonarqube\" /d:sonar.host.url=\"http://10.26.2.215:9000/\" /d:sonar.login=\"sqa_c1155d4ddbbf2cf5a084a2b9b2ebb40784080a2f\""
+            sh "\"MSBuild.exe\" ETicaretAPI/src/ETicaretAPI.sln /t:Rebuild"
+            sh "\"SonarScanner.MSBuild.exe\" end /d:sonar.login=\"sqa_c1155d4ddbbf2cf5a084a2b9b2ebb40784080a2f\""
           }
         }
       }
