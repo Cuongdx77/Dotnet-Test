@@ -23,16 +23,9 @@ pipeline {
     stage("Quality Gate") {
       agent { label 'agent3'}
       steps {
-        timeout(time: 1, unit: 'HOURS') {
-          script {
-            def qualitygate = waitForQualityGate()
-            if (qualitygate.status != "OK") {
-              error "Pipeline aborted due to quality gate coverage failure: ${qualitygate.status}"
+              waitForQualityGate abortPipeline: true, credentialsId: 'Webhook-Sonarqube'
             }
-          }
         }
-      }
-    }
   stage('Build image') {
     agent { label 'agent1'}
       steps {
