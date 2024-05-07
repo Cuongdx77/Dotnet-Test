@@ -14,16 +14,18 @@ pipeline {
   stage('Sonarqube') {
      agent { label 'agent3'}
      steps {
+       timeout(time: 1, unit: 'HOURS') {
               withSonarQubeEnv('Sonarqube server connection'){
                   sh 'cd /root/ETicaretAPI'
                   sh 'docker build -f Dockerfile-sonar -t dotnet-sonarscan:02 --rm .'
               }
             }
           }
+  }
     stage("Quality Gate") {
       agent { label 'agent3'}
       steps {
-              waitForQualityGate abortPipeline: true, credentialsId: 'Webhook-Sonarqube'
+              waitForQualityGate(webhookSecretId: 'Webhook-Sonarqube') abortPipeline: true
             }
         }
   stage('Build image') {
