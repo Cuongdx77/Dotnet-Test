@@ -25,7 +25,7 @@ pipeline {
     stage("Quality Gate") {
       agent { label 'agent3'}
       steps {
-              waitForQualityGate(webhookSecretId: 'Webhook-Sonarqube') abortPipeline: true
+              waitForQualityGate(webhookSecretId: 'Webhook-Sonarqube', abortPipeline: true)
             }
         }
   stage('Build image') {
