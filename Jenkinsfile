@@ -4,9 +4,6 @@ pipeline {
     dockerImage = ""
   }
   agent none
-  	tools {
-   		 maven "maven3"
-        }
   stages {
     stage('Checkout Source') {
       agent { label 'agent1'}
