@@ -15,7 +15,7 @@ pipeline {
      agent { label 'agent3'}
      steps {
        timeout(time: 1, unit: 'HOURS') {
-              withSonarQubeEnv('Sonarqube server connection'){
+              withSonarQubeEnv('Sonarqube_Cred'){
                   sh 'cd /root/ETicaretAPI'
                   sh 'docker build -f Dockerfile-sonar -t dotnet-sonarscan:02 --rm .'
               }
