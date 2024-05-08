@@ -24,8 +24,10 @@ pipeline {
       }
     stage("Quality Gate") {
       agent { label 'agent3'}
-      steps {
-              waitForQualityGate(webhookSecretId: 'Webhook-Sonarqube', abortPipeline: true)
+            steps {
+                timeout(time: 1, unit: 'HOURS') {
+                    waitForQualityGate abortPipeline: true, credentialsId: 'Sonarqube_Cred'
+                }
             }
         }
   stage('Build image') {
