@@ -11,18 +11,17 @@ pipeline {
         git branch: 'master', credentialsId: 'GitHubCred', url: 'https://github.com/Cuongdx77/Dotnet-Test.git'
       }
     }
-  stage('Sonarqube') {
-     agent { label 'agent3'}
-        environment {
-                scannerHome = tool 'sonarqube_scanner'
-            }
-     steps {
-              withSonarQubeEnv('Sonarqube_server'){
-                  sh 'cd /root/ETicaretAPI'
-                  sh 'docker build -f Dockerfile-sonar -t dotnet-sonarscan:02 --rm .'
-            }
-          }
-      }
+
+  stage('SonarQube Analysis') {
+    agent { label 'agent3'}
+     def scannerHome = tool 'sonarqube_scanner'
+     withSonarQubeEnv() {
+         bat "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll begin /k:\"dotnet-test\""
+        bat "dotnet build"
+        bat "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll end"
+    }
+  }
+}
     stage("Quality Gate") {
       agent { label 'agent3'}
             steps {
