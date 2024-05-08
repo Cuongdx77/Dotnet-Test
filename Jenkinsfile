@@ -13,6 +13,9 @@ pipeline {
     }
   stage('Sonarqube') {
      agent { label 'agent3'}
+        environment {
+                scannerHome = tool 'sonarqube_scanner'
+            }
      steps {
               withSonarQubeEnv('Sonarqube_server'){
                   sh 'cd /root/ETicaretAPI'
