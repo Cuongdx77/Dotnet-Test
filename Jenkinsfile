@@ -1,6 +1,7 @@
 pipeline {
   environment {
     dockerimagename = "dxcuong206/dotnet-test"
+    dockerImage = ""
   }
   agent none
   stages {
@@ -14,11 +15,13 @@ pipeline {
     stage('SonarQube Analysis') {
       agent { label 'agent3'}
       steps {
-        def scannerHome = tool 'sonarqube_scanner'
-        withSonarQubeEnv('Sonarqube_server') {
-          bat "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll begin /k:\"dotnet-test\""
-          bat "dotnet build"
-          bat "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll end"
+        script {
+          def scannerHome = tool 'sonarqube_scanner'
+          withSonarQubeEnv('Sonarqube_server') {
+            bat "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll begin /k:\"dotnet-test\""
+            bat "dotnet build"
+            bat "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll end"
+          }
         }
       }
     }
@@ -40,3 +43,5 @@ pipeline {
     }
   }
 }
+
+
