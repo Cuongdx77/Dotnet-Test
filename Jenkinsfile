@@ -14,9 +14,10 @@ pipeline {
 
     stage('SonarQube Analysis') {
       agent { label 'agent3'}
+      environment {
+                scannerHome = tool 'sonarqube_scanner'
+            }
       steps {
-        script {
-          def scannerHome = tool 'sonarqube_scanner'
           withSonarQubeEnv('Sonarqube_server') {
             bat "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll begin /k:\"dotnet-test\""
             bat "dotnet build"
@@ -24,7 +25,6 @@ pipeline {
           }
         }
       }
-    }
 
     stage("Quality Gate") {
       agent { label 'agent3'}
