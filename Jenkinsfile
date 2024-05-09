@@ -5,7 +5,7 @@ pipeline {
   }
   agent none
   tools {
-    SonarScannerForMSBuild('sonarqube_scanner')
+    msbuild: 'sonarqube_scanner' 
   }
   stages {
     stage('Checkout Source') {
