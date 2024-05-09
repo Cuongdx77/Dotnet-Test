@@ -15,20 +15,18 @@ pipeline {
       }
     }
 
-    stage('SonarQube Analysis') {
-      agent { label 'agent3'}
-      steps {
-        script {
-          def scannerHome = tool 'sonarqube_scanner'
-          withSonarQubeEnv('Sonarqube_server') {
-            bat "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll begin /k:\"dotnet-test\""
-            bat "dotnet build"
-            bat "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll end"
+  stage('Sonarqube') {
+     agent { label 'agent3'}
+        environment {
+                scannerHome = tool 'sonarqube_scanner'
+            }
+     steps {
+              withSonarQubeEnv('Sonarqube_server'){
+                  sh 'cd /root/ETicaretAPI'
+                  sh 'docker build -f Dockerfile-sonar -t dotnet-sonarscan:02 --rm .'
+            }
           }
-        }
       }
-    }
-
     stage("Quality Gate") {
       agent { label 'agent3'}
       steps {
