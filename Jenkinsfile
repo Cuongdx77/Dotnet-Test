@@ -4,9 +4,6 @@ pipeline {
     dockerImage = ""
   }
   agent none
-  tools {
-    msbuild: 'sonarqube_scanner'
-  }
   stages {
     stage('Checkout Source') {
       agent { label 'agent1'}
