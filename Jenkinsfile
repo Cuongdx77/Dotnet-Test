@@ -16,7 +16,7 @@ pipeline {
     agent { label 'agent3'}
      def scannerHome = tool 'sonarqube_scanner'
      withSonarQubeEnv() {
-         bat "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll begin /k:\"dotnet-test\""
+        bat "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll begin /k:\"dotnet-test\""
         bat "dotnet build"
         bat "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll end"
     }
