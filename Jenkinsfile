@@ -24,14 +24,17 @@ pipeline {
             }
           }
       }
-    stage("Quality Gate") {
-      agent { label 'agent3'}
-      steps {
-        timeout(time: 1, unit: 'HOURS') {
-          waitForQualityGate abortPipeline: true
+  stage("Quality Gate") {
+    agent { label 'agent3'}
+    steps {
+        script {
+            def response = sh script: 'curl -u "sqa_1930a831282b897e091d3074560eb2ef2e0bf5c8:" "10.26.2.215:9000/api/qualitygates/project_status?projectKey=test-sonarqube"', returnStdout: true
+            if (response.contains('ERROR')) {
+                error 'Quality Gate check failed!'
+            }
         }
-      }
     }
+ }
 
     stage('Build image') {
       agent { label 'agent1'}
