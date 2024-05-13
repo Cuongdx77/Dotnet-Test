@@ -19,7 +19,6 @@ pipeline {
             }
      steps {
               withSonarQubeEnv('Sonarqube_server'){
-                  sh 'mvn clean package sonar:sonar'
                   sh 'cd /root/ETicaretAPI'
                   sh 'docker build -f Dockerfile-sonar -t dotnet-sonarscan:02 --rm .'
             }
