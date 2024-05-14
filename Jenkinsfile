@@ -48,11 +48,6 @@ pipeline {
       }
     }
 
-
-            if (response == 'OK') {
-              currentBuild.result = 'ABORTED' 
-              error('Job Aborted') 
-
     stage('Build image') {
       agent { label 'agent1' }
       steps {
