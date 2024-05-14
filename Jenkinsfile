@@ -35,7 +35,6 @@ pipeline {
           }
         }
       }
-    }
     stage('Quality Gate') {
       agent { label 'agent1' }
       steps {
