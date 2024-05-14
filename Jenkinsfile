@@ -31,22 +31,12 @@ pipeline {
         script {
           def response = sh(script: 'curl -u "sqa_1930a831282b897e091d3074560eb2ef2e0bf5c8:" "10.26.2.215:9000/api/qualitygates/project_status?projectKey=test-sonarqube" | jq -r ".projectStatus.status"', returnStdout: true).trim()
           echo "Quality Gate Status: ${response}"
-          qualityGateStatus = response
-          }
-        }
-      }
-    stage('Quality Gate Check - Evaluate') {
-      agent { label 'agent1' }
-      steps {
-        script {
-           if (qualityGateStatus == 'OK') {
+          if (qualityGateStatus == 'OK') {
               currentBuild.result = 'ABORTED' 
               error('Job Aborted') 
           }
         }
       }
-    }
-
     stage('Build image') {
       agent { label 'agent1' }
       steps {
