@@ -13,7 +13,7 @@ pipeline {
     }
 
     stage('Sonarqube') {
-      agent { label 'agent1' }
+      agent { label 'agent3' }
       environment {
         scannerHome = tool 'sonarqube_scanner'
       }
