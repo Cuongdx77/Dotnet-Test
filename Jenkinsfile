@@ -35,7 +35,7 @@ pipeline {
           }
         }
       }
-    stage('Quality Gate') {
+    stage('Quality Gate Check - Evaluate') {
       agent { label 'agent1' }
       steps {
         script {
